@@ -5,7 +5,7 @@ _ = load_dotenv(find_dotenv())
 from Agent.ReAct import ReActAgent
 from Models.Factory import ChatModelFactory
 from Tools import *
-from Tools.PythonTool import ExcelAnalyser
+from Tools.PythonTool import ExcelAnalyser, PlotTool
 from langchain_community.chat_message_histories.in_memory import ChatMessageHistory
 
 
@@ -39,6 +39,11 @@ def main():
         ExcelAnalyser(
             llm=llm,
             prompt_file="./prompts/tools/excel_analyser.txt",
+            verbose=True
+        ).as_tool(),
+        PlotTool(
+            llm=llm,
+            prompt_file="./prompts/tools/plot.txt",
             verbose=True
         ).as_tool()
     ]

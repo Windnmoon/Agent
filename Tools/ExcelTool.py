@@ -45,3 +45,16 @@ def get_first_n_rows(
 
     result += f"这是 '{filename}' 文件第一个工作表的前{n}行样例：\n\n{n_lines}"
     return result
+
+
+
+def get_csv_first_n_rows(
+        filename: str,
+        n: int = 3
+) -> str:
+    """获取 csv 文件的前 n 行"""
+
+    df = pd.read_csv(filename, nrows=n)
+
+    result = f"这是 '{filename}' 文件第一个工作表的前{n}行样例：\n\n{df}"
+    return result

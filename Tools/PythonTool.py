@@ -10,7 +10,7 @@ from Models.Factory import ChatModelFactory
 from Utils.CallbackHandlers import ColoredPrintHandler
 from Utils.PrintUtils import CODE_COLOR
 from langchain_openai import ChatOpenAI
-from .ExcelTool import get_first_n_rows, get_column_names
+from .ExcelTool import get_first_n_rows, get_column_names, get_csv_first_n_rows
 from langchain_experimental.utilities import PythonREPL
 
 
@@ -91,6 +91,64 @@ class ExcelAnalyser:
         return StructuredTool.from_function(
             func=self.analyse,
             name="AnalyseExcel",
+            description=self.__class__.__doc__.replace("\n", ""), # self.__class__ 获取当前对象的类，即 ExcelAnalyser 类本身。__doc__ 是 Python 中的特殊属性，用于获取类或函数的文档字符串（docstring），即class ExcelAnalyser下面一行的字符串
+        )
+    
+
+class PlotTool:
+    """
+    根据所生成的csv文件进行画图（基于 Python 代码实现）。
+    输入中必须包含csv文件的完整路径和具体的画图要求。
+    """
+
+    def __init__(
+            self,
+            llm: Union[BaseLanguageModel, BaseChatModel], # Union[BaseLanguageModel, BaseChatModel] 表示 llm 参数可以接收 BaseLanguageModel 类型或 BaseChatModel 类型的实例。
+            prompt_file="./prompts/tools/plot.txt",
+            verbose=False
+    ):
+        self.llm = llm
+        self.prompt = PromptTemplate.from_file(prompt_file, encoding='utf-8')
+        self.verbose = verbose
+        self.verbose_handler = ColoredPrintHandler(CODE_COLOR)
+
+    def agent_plot(self, query, filename):
+
+        """
+        根据所生成的csv文件进行画图（基于 Python 代码实现）。
+        输入中必须包含csv文件的完整路径和具体的画图要求。
+        """
+        
+        inspections = get_csv_first_n_rows(filename, 3)
+
+        code_parser = PythonCodeParser()
+        chain = self.prompt | self.llm | StrOutputParser()
+
+        response = ""
+
+        for c in chain.stream({
+            "query": query,
+            "filename": filename,
+            "inspections": inspections
+        }, config={
+            "callbacks": [
+                self.verbose_handler
+            ] if self.verbose else []
+        }):
+            response += c
+
+        code = code_parser.parse(response)
+
+        if code:
+            ans = query+"\n"+PythonREPL().run(code) # PythonREPL 是一个类，用于在 Python 的交互式解释器（REPL）中执行代码。run(code) 方法接收一个字符串参数 code，表示要执行的 Python 代码，并返回代码的执行结果。
+            return ans
+        else:
+            return "没有找到可执行的Python代码"
+
+    def as_tool(self):
+        return StructuredTool.from_function(
+            func=self.agent_plot,
+            name="plot_with_csv",
             description=self.__class__.__doc__.replace("\n", ""), # self.__class__ 获取当前对象的类，即 ExcelAnalyser 类本身。__doc__ 是 Python 中的特殊属性，用于获取类或函数的文档字符串（docstring），即class ExcelAnalyser下面一行的字符串
         )
 

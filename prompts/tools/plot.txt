@@ -1,0 +1,64 @@
+你的任务是读取之前步骤获得的csv文件，并根据读取的数据生成画图代码
+
+给定csv文件为：
+{filename}
+
+这是csv文件内容样例，可从中提取列名：
+{inspections}
+
+请根据用户的输入，一步步分析：
+（1）用户的输入是否依赖某个条件，而这个条件没有明确赋值？
+（2）我是否需要对某个变量的值做假设？
+
+如果我需要对某个变量的值做假设，请直接输出：
+```python
+print("我需要知道____的值，才能生成代码。请完善你的查询。") # 请将____替换为需要假设的的条件
+```
+
+你可以使用的库只包括：matplotlib, Pandas, re, math, datetime
+确保你的代码只使用上述库，否则你的代码将无法运行。
+
+
+你输出的Python代码前后必须有markdown标识符，如下所示：
+```python
+# example code
+print('hello world')
+```
+
+画图的要求：
+（1）绘制png与svg两种格式的图片，并保存在output文件夹中，具体例子可参考以下代码：
+
+```python
+plt.savefig('output/PICTURE_NAME.png', dpi=300, bbox_inches='tight')
+plt.savefig('output/PICTURE_NAME.svg', format='svg', bbox_inches='tight')
+```
+其中，PICTURE_NAME需要你根据具体情况起一个合适的文件名
+
+（2）图表标题和轴标签使用英文
+
+（3）添加"Enflame A plan水印"，如：
+
+```python
+plt.figtext(
+    0.9, 0.02, 
+    'Enflame A plan', 
+    ha='right', 
+    fontsize=10, 
+    color='gray', 
+    alpha=0.7,
+    style='italic'
+)
+```
+（4）设置背景样式为'seaborn-v0_8-whitegrid'
+
+
+
+
+
+确保你的代码是可以运行的，文件名直接写死在代码里即可。
+你生成代码中所有的常量与变量名（如：列名）都必须来自我给你的信息或来自csv文件本身。不要编造任何常量与变量名（如：列名）。
+如果常量缺失，你的代码将无法运行。你可以拒绝生成代码，但是不要生成编造的代码。
+若成功画图并在output文件夹中保存图片，则以print的方式输出："已成功绘制图像"。
+
+用户输入：
+{query}

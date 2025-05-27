@@ -158,7 +158,7 @@ class ReActAgent:
         :param chat_history: 对话上下文（长时记忆）
         :param verbose: 是否显示详细信息
         """
-        # 初始化短时记忆: 记录推理过程
+        # 初始化短时记忆: 记录执行工具得到的结果
         short_term_memory = []
 
         # 思考步数

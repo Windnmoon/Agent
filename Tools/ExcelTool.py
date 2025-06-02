@@ -28,7 +28,7 @@ def get_column_names(
 
 def get_first_n_rows(
         filename: str,
-        n: int = 3
+        n: int = 6
 ) -> str:
     """获取 Excel 文件的前 n 行"""
 

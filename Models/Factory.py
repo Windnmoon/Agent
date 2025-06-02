@@ -24,8 +24,14 @@ class ChatModelFactory:
             #         api_version="2024-05-01-preview",
             #         **cls.model_params
             #     )
+
+            '''
+            deepseek-chat 模型指向 DeepSeek-V3-0324， 通过指定 model='deepseek-chat' 调用。
+            deepseek-reasoner 模型指向 DeepSeek-R1-0528， 通过指定 model='deepseek-reasoner' 调用。
+            '''
             return ChatDeepSeek(
-                        model="deepseek-chat",
+                        model="deepseek-chat", # DeepSeek-V3-0324
+                        # model="deepseek-reasoner", # DeepSeek-R1-0528
                         api_key="sk-78bbba8d1a214446958e01ac0d864657",
                         api_base="https://api.deepseek.com",
                         **cls.model_params

@@ -41,12 +41,14 @@ class ReActAgent:
             tools: List[BaseTool], # tools的类型为一个List，其中每个元素都是BaseTool类型或其子类型的实例
             work_dir: str,
             main_prompt_file: str,
+            knowledge_file: str,
             max_thought_steps: Optional[int] = 10,
     ):
         self.llm = llm
         self.tools = tools
         self.work_dir = work_dir
         self.main_prompt_file = main_prompt_file
+        self.knowledge_file = knowledge_file
         self.max_thought_steps = max_thought_steps
 
         self.verbose_handler = ColoredPrintHandler(color=THOUGHT_COLOR)
@@ -63,6 +65,9 @@ class ReActAgent:
         self.__init_chains()
 
     def __init_prompt_templates(self):
+        with open(self.knowledge_file, 'r', encoding='utf-8') as f:
+            knowledge = f.read()
+
         with open(self.main_prompt_file, 'r', encoding='utf-8') as f:
             self.prompt = ChatPromptTemplate.from_messages( # 用类方法from_messages创建prompt模板
                 [
@@ -74,6 +79,7 @@ class ReActAgent:
                 work_dir=self.work_dir,
                 tools=render_text_description(self.tools), # render_text_description将工具列表转换为文本描述，以便在提示模板中使用，使模型能够了解可用的工具及其功能
                 tool_names=','.join([tool.name for tool in self.tools]),
+                knowledge_str = knowledge,
                 format_instructions=self.output_parser.get_format_instructions(), # get_format_instructions：获取输出解析器的格式说明，并将其传递给提示模板。这些格式说明告诉模型如何生成符合输出解析器要求的输出，从而确保模型的输出能够被正确解析和使用
             )
 

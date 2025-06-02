@@ -30,7 +30,7 @@ email_tool = StructuredTool.from_function(
 excel_inspection_tool = StructuredTool.from_function(
     func=get_first_n_rows,
     name="InspectExcel",
-    description="探查表格文件的内容和结构，展示它的列名和前n行，n默认为3",
+    description="探查表格文件的内容和结构，展示它的列名和前n行，n默认为6",
 ) # got it
 
 directory_inspection_tool = StructuredTool.from_function(

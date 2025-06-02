@@ -48,20 +48,22 @@ class ExcelAnalyser:
     def __init__(
             self,
             llm: Union[BaseLanguageModel, BaseChatModel], # Union[BaseLanguageModel, BaseChatModel] 表示 llm 参数可以接收 BaseLanguageModel 类型或 BaseChatModel 类型的实例。
+            knowledge_file="./prompts/knowledge/excel_knowledge.txt",
             prompt_file="./prompts/tools/excel_analyser.txt",
             verbose=False
     ):
         self.llm = llm
         self.prompt = PromptTemplate.from_file(prompt_file, encoding='utf-8')
         self.verbose = verbose
+        self.knowledge_file = knowledge_file
         self.verbose_handler = ColoredPrintHandler(CODE_COLOR)
 
     def analyse(self, query, filename):
 
         """分析一个结构化文件（例如excel文件）的内容。"""
 
-        # columns = get_column_names(filename)
-        inspections = get_first_n_rows(filename, 3)
+        with open(self.knowledge_file, 'r', encoding='utf-8') as f:
+            knowledge = f.read()
 
         code_parser = PythonCodeParser()
         chain = self.prompt | self.llm | StrOutputParser()
@@ -71,7 +73,7 @@ class ExcelAnalyser:
         for c in chain.stream({
             "query": query,
             "filename": filename,
-            "inspections": inspections
+            "knowledge": knowledge
         }, config={
             "callbacks": [
                 self.verbose_handler

@@ -36,7 +36,9 @@ plt.savefig('output/PICTURE_NAME.svg', format='svg', bbox_inches='tight')
 
 （2）图表标题和轴标签使用英文
 
-（3）添加"Enflame A plan水印"，如：
+（3）分析判断将要绘制的是否是柱状图，如果是柱状图，则在将纵坐标的值标注在柱状图中（保留两位小数）
+
+（4）添加"Enflame A plan水印"，如：
 
 ```python
 plt.figtext(
@@ -49,7 +51,9 @@ plt.figtext(
     style='italic'
 )
 ```
-（4）设置背景样式为'seaborn-v0_8-whitegrid'
+（5）设置背景样式为'seaborn-v0_8-whitegrid'
+
+（6）绘制颜色使用'royalblue'
 
 
 确保你的代码是可以运行的，文件名直接写死在代码里即可。

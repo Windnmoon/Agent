@@ -3,15 +3,10 @@
 1、你所有需要的数据都可以在表格中直接读取到，不用进行任何计算。
 2、如果是与账单、费用相关的问题，查询的sheet为'费用统计'。
 3、在'费用统计'sheet中：
-（1）若需要【团队名称】，直接查询索引【2】列。
-（2）若需要【合计账单】，直接查询索引【6】列。
-（3）若需要【磁盘账单】，直接查询索引【3】列。
-（4）若需要【本地机器账单】，直接查询索引【4】列。
-（5）若需要【云机器账单】，直接查询索引【5】列。
-（6）这是所有团队名称列表，名称准确，写代码时可直接使用：['sip_dv','Processor','interconnect','SoCDV & SYSIPDV','Cluster','SocPV','SysDV & CommonIPDV','mc ipdv','DCE IPDV','SOCDE','IMPL_IP_Dev','IP_fabri','NPE&IP_amos','package','DFX','Platform','Impl'-FE,'SIPI','Impl'-Analog,'Impl-FE','Impl-BE']
-（7）所有团队的总称为：HSE所有团队。
+（1）这是所有团队名称列表，名称准确，写代码时可直接使用：['sip_dv','Processor','interconnect','SoCDV & SYSIPDV','Cluster','SocPV','SysDV & CommonIPDV','mc ipdv','DCE IPDV','SOCDE','IMPL_IP_Dev','IP_fabri','NPE&IP_amos','package','DFX','Platform','Impl'-FE,'SIPI','Impl'-Analog,'Impl-FE','Impl-BE']
+（2）所有团队的总称为：HSE所有团队。
+4、写python代码查询团队的信息时，确保代码中的【团队名称】与要查询的【目标团队名称】一致，且名称应为上面列表中的元素
 
 
-重点强调：你在分析Excel表格需要使用列名时，根据上方的知识先将汉字列名映射成数字列索引，写代码时只能使用上方提供给你的数字列索引，禁止使用汉字列名。
 
 

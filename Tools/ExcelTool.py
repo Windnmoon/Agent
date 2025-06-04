@@ -28,7 +28,7 @@ def get_column_names(
 
 def get_first_n_rows(
         filename: str,
-        n: int = 6
+        n: int = 3
 ) -> str:
     """获取 Excel 文件的前 n 行"""
 
@@ -43,7 +43,7 @@ def get_first_n_rows(
         df.head(n).to_string(index=False, header=True).split('\n')
     )
 
-    result += f"这是 '{filename}' 文件第一个工作表的前{n}行样例：\n\n{n_lines}"
+    result += f"这是 '{filename}' 文件第一个工作表的前{n}行样例：\n\n{n_lines}\n\n注意：这只是前{n}行样例，不代表全部数据"
     return result
 
 

@@ -1,37 +1,54 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 
-# 读取Excel文件
-file_path = './data/HSE资源费用统计总表_202504.xlsx'
-sheet_name = '费用统计'
-df = pd.read_excel(file_path, sheet_name=sheet_name)
+# 设置样式
+plt.style.use('seaborn-v0_8-whitegrid')
 
-# 筛选SoCDV & SYSIPDV团队的数据
-team_name = 'SoCDV & SYSIPDV'
-team_data = df[df.iloc[:,2] == team_name]
-print(team_data)
-print(team_data.iloc[1, 3])
+# 读取CSV文件
+df = pd.read_csv('./output/HSE_teams_local_machine_cost_sorted.csv')
 
-# 提取所需列的数据
-disk_bill = team_data.iloc[0, 3]  # 磁盘账单(列3)
-local_machine_bill = team_data.iloc[0, 4]  # 本地机器账单(列4)
-total_bill = team_data.iloc[0, 6]  # 合计账单(列6)
+# 确保列名正确
+x_col = 'HSE团队名称'
+y_col = '本地机器账单（万元）'
 
-# 创建结果DataFrame
-result = pd.DataFrame({
-    '团队名称': [team_name],
-    '磁盘账单': [disk_bill],
-    '本地机器账单': [local_machine_bill],
-    '合计账单': [total_bill]
-})
+# 创建图形
+plt.figure(figsize=(12, 6))
 
-# 保存到csv文件
-output_path = './output/SoCDV_SYSIPDV_bills.csv'
-result.to_csv(output_path, index=False, encoding='utf-8-sig')
+# 绘制柱状图
+bars = plt.bar(df[x_col], df[y_col], color='royalblue')
 
-# 打印结果
-print(f"提取结果已保存到: {output_path}")
-print("\n提取的数据如下:")
-print(f"团队名称: {team_name}")
-print(f"磁盘账单: {disk_bill}")
-print(f"本地机器账单: {local_machine_bill}")
-print(f"合计账单: {total_bill}")
+# 添加数值标签
+for bar in bars:
+    height = bar.get_height()
+    plt.text(bar.get_x() + bar.get_width()/2., height,
+             f'{height:.2f}',
+             ha='center', va='bottom')
+
+# 设置标题和标签
+plt.title('Local Machine Cost by HSE Team (Sorted)', fontsize=14)
+plt.xlabel('HSE Team Name', fontsize=12)
+plt.ylabel('Cost (10k yuan)', fontsize=12)
+
+# 旋转x轴标签
+plt.xticks(rotation=45, ha='right')
+
+# 添加水印
+plt.figtext(
+    0.9, 0.02, 
+    'Enflame A plan', 
+    ha='right', 
+    fontsize=10, 
+    color='gray', 
+    alpha=0.7,
+    style='italic'
+)
+
+# 调整布局
+plt.tight_layout()
+
+# 保存图像
+plt.savefig('output/HSE_teams_local_machine_cost_bar1.png', dpi=300, bbox_inches='tight')
+
+plt.close()
+
+print("已成功绘制图像")

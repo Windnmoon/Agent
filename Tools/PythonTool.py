@@ -65,6 +65,8 @@ class ExcelAnalyser:
         with open(self.knowledge_file, 'r', encoding='utf-8') as f:
             knowledge = f.read()
 
+        inspections = get_first_n_rows(filename, 3)
+
         code_parser = PythonCodeParser()
         chain = self.prompt | self.llm | StrOutputParser()
 
@@ -73,6 +75,7 @@ class ExcelAnalyser:
         for c in chain.stream({
             "query": query,
             "filename": filename,
+            "inspections": inspections,
             "knowledge": knowledge
         }, config={
             "callbacks": [

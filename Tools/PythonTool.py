@@ -1,5 +1,5 @@
 import re
-from typing import Union
+from typing import Union, Dict
 
 from langchain.tools import StructuredTool
 from langchain_core.language_models import BaseChatModel, BaseLanguageModel
@@ -42,7 +42,8 @@ class PythonCodeParser(BaseOutputParser):
 class ExcelAnalyser:
     """
     从Excel文件中提取信息或分析数据（基于 Python 代码实现）。
-    输入中必须包含文件的完整路径和具体分析方式和分析依据，阈值常量等。
+    输入中必须包含文件的完整路径和具体分析方式和分析依据等。
+    输入的文件路径可能是一个或多个，均以字典的形式给出。
     """
 
     def __init__(
@@ -58,14 +59,12 @@ class ExcelAnalyser:
         self.knowledge_file = knowledge_file
         self.verbose_handler = ColoredPrintHandler(CODE_COLOR)
 
-    def analyse(self, query, filename):
+    def analyse(self, query, filename: Dict):
 
         """分析一个结构化文件（例如excel文件）的内容。"""
 
         with open(self.knowledge_file, 'r', encoding='utf-8') as f:
             knowledge = f.read()
-
-        inspections = get_first_n_rows(filename, 3)
 
         code_parser = PythonCodeParser()
         chain = self.prompt | self.llm | StrOutputParser()
@@ -75,7 +74,6 @@ class ExcelAnalyser:
         for c in chain.stream({
             "query": query,
             "filename": filename,
-            "inspections": inspections,
             "knowledge": knowledge
         }, config={
             "callbacks": [

@@ -100,8 +100,9 @@ class ExcelAnalyser:
 
 class PlotTool:
     """
-    根据所生成的csv文件进行画图（基于 Python 代码实现）。
-    输入中必须包含csv文件的完整路径和具体的画图要求。
+    根据绘图数据信息：plot_information进行画图（基于 Python 代码实现）。
+    输入中必须包含具体的画图要求和绘图所依赖的数据：plot_information。
+    绘图数据信息：plot_information以自然语言的形式呈现。
     """
 
     def __init__(
@@ -115,15 +116,14 @@ class PlotTool:
         self.verbose = verbose
         self.verbose_handler = ColoredPrintHandler(CODE_COLOR)
 
-    def agent_plot(self, query, filename):
+    def agent_plot(self, query, plot_information: str):
 
         """
-        根据所生成的csv文件进行画图（基于 Python 代码实现）。
-        输入中必须包含csv文件的完整路径和具体的画图要求。
+        根据绘图数据信息：plot_information进行画图（基于 Python 代码实现）。
+        输入中必须包含具体的画图要求和绘图所依赖的数据：plot_information。
+        绘图数据信息：plot_information以自然语言的形式呈现。
         """
         
-        inspections = get_csv_first_n_rows(filename, 3)
-
         code_parser = PythonCodeParser()
         chain = self.prompt | self.llm | StrOutputParser()
 
@@ -131,8 +131,7 @@ class PlotTool:
 
         for c in chain.stream({
             "query": query,
-            "filename": filename,
-            "inspections": inspections
+            "plot_information": plot_information
         }, config={
             "callbacks": [
                 self.verbose_handler

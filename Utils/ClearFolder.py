@@ -15,3 +15,6 @@ def delete_files_in_folder(folder_path):
                 os.remove(file_path)
     else:
         print("文件夹不存在:", folder_path)
+
+if __name__ == '__main__':
+    delete_files_in_folder('./output')

@@ -38,9 +38,8 @@ import matplotlib as mpl
 mpl.rcParams['font.family'] = 'Microsoft YaHei'
 mpl.rcParams['axes.unicode_minus'] = False
 ```
-在绘制图表标题、轴标签与横轴纵轴的刻度时需要传入参数：fontproperties=chinese_font（确保不违背matplotlib的语法）
 
-（3）分析判断将要绘制的是否是柱状图，如果是柱状图，则在将纵坐标的值标注在柱状图中（保留两位小数）。
+（3）分析判断将要绘制的是否是柱状图或折线图，如果是，则将纵坐标的值标注在图中（数据有小数则保留到小数点后两位，数据全为整数则标注也为整数）。
 
 （4）添加"Enflame A plan水印"，如：
 

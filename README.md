@@ -42,7 +42,7 @@ Agent文件夹：
 
 ​	React.py：对下图中的逻辑框架进行实现
 
-<img src="C:\A_Work_Station\Work_Platform\A_Plan\Agent\README.assets\image-20250622141251506.png" alt="image-20250622141251506" style="zoom: 50%;" />
+<img src="README.assets\image-20250622141251506.png" alt="image-20250622141251506" style="zoom: 50%;" />
 
 data文件夹：存放脚本预处理后的简洁表格
 

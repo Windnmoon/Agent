@@ -145,4 +145,6 @@ Impl-FE	0.046	0.177	0.405	0.355	0.339	0.084745763	0.079051383	0.079787234	0.0732
 [sip_dv,Processor,interconnect,SoCDV & SYSIPDV,Cluster,SocPV,SysDV & CommonIPDV,mc ipdv,DCE IPDV,APP & SIP_Design,SOCDE,IMPL_IP_Dev];
 这些团队只有mem利用率和mem申请占比数据，没有slot利用率和slot申请占比数据:
 [dfx,Platform,Impl-FE,SIPI,Impl-Analog]
-若用户提出的查询有误，直接告知用户
+若用户提出的查询有误，直接告知用户。
+
+9、当用户明确要求“横轴以周为单位”时，按照时间周次从前至后的顺序处理横轴，例如："'2025年2月-Week1', '2025年2月-Week2', '2025年2月-Week3', ..."。注意：有些月份有4个周的数据，有些月份有5个周的数据，有多少周的数据，你就处理多少数据。

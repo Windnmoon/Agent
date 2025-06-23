@@ -23,6 +23,7 @@ dir_path={work_dir}
 9. 不要向用户提问。
 10.如果用户任务是一个绘图任务，请确保绘制图像后再调用FINISH工具
 11.如果你决定接下来将使用plot_with_csv工具，确保输出的json中具备了绘图数据信息，此信息将在下方当前的任务执行记录中由尖括号<>包裹。
+12.当你决定调用plot_with_csv工具时，确保调用格式无误。正确的调用应该包含query参数与plot_information参数，而不仅仅是plot_information参数。
 
 当前的任务执行记录:
 <history>

@@ -1,85 +1,71 @@
 import matplotlib.pyplot as plt
-import matplotlib as mpl  # 新增全局设置模块
-import os
+import matplotlib as mpl
 
+# 设置中文字体
+mpl.rcParams['font.family'] = 'Microsoft YaHei'
+mpl.rcParams['axes.unicode_minus'] = False
 
-# --- 关键修复步骤 ---
-# 1. 设置全局中文字体（微软雅黑）
-mpl.rcParams['font.family'] = 'Microsoft YaHei'  # Windows系统字体[6,7](@ref)
-mpl.rcParams['axes.unicode_minus'] = False  # 修复负号显示问题[1,2](@ref)
+# 准备数据
+months = ['2月', '3月', '4月', '5月']
+weeks = ['Week1', 'Week2', 'Week3', 'Week4', 'Week5']
+data = {
+    '2月': [0.254, 0.254, 0.229, 0.197, 0.238],
+    '3月': [0.38, 0.197, 0.38, 0.254, 0.321],  # Week5数据缺失
+    '4月': [0.246, 0.38, 0.448, 0.38, 0.412],  # Week5数据缺失
+    '5月': [0.254, 0.254, 0.229, 0.197, 0.234]  # Week5数据缺失
+}
 
+# 创建图形
+fig, ax = plt.subplots(figsize=(12, 6))
 
+# 设置柱状图位置
+x = range(len(weeks))
+width = 0.2  # 柱状图宽度
 
-# # 数据准备
-# months = ['2025年2月', '2025年3月', '2025年4月', '2025年5月']
-# amounts = [12.8282, 12.8282, 12.8282, 12.8282]
+# 绘制每个月的柱状图
+for i, month in enumerate(months):
+    values = data[month]
+    positions = [pos + i * width for pos in x]
+    bars = ax.bar(positions, values, width, label=month, color='royalblue')
+    
+    # 添加数据标签
+    for bar in bars:
+        height = bar.get_height()
+        if height > 0:  # 只显示有效数据
+            ax.text(bar.get_x() + bar.get_width()/2., height,
+                    f'{height:.2f}',
+                    ha='center', va='bottom')
 
-# # 创建图表
-# fig, ax = plt.subplots(figsize=(8, 6))
+# 设置图表标题和标签
+ax.set_title('SOCDE团队2025年2-5月slot利用率周统计')
+ax.set_xlabel('周数')
+ax.set_ylabel('slot利用率')
+ax.set_xticks([pos + 1.5 * width for pos in x])
+ax.set_xticklabels(weeks)
+ax.set_ylim(0, 0.5)
 
-# # 绘制柱状图
-# bars = ax.bar(months, amounts, color='royalblue')
+# 添加图例
+ax.legend()
 
-# # 3. 添加数据标签（使用备用字体）
-# for bar in bars:
-#     height = bar.get_height()
-#     ax.text(bar.get_x() + bar.get_width()/2., height,
-#             f'{height:.2f}',  # 保留两位小数
-#             ha='center', va='bottom')  # 显式应用字体[7](@ref)
-
-# # 4. 设置中文标签（双保险）
-# ax.set_xlabel('月份')  # X轴标签
-# ax.set_ylabel('金额（万元）')  # Y轴标签
-# ax.set_title('2025年季度数据')  # 标题
-
-# plt.tight_layout()
-# plt.show()
-
-
-
-
-
-# 数据准备
-months = ['2025年2月', '2025年3月', '2025年4月', '2025年5月']
-amounts = [12.8282, 12.8282, 12.8282, 12.8282]
-# 设置样式
-# plt.style.use('seaborn-v0_8-whitegrid')
-
-# 创建图表
-
-fig, ax = plt.subplots(figsize=(8, 6))
-
-
-# 绘制柱状图
-bars = ax.bar(months, amounts, color='royalblue')
-# 添加数据标签
-for bar in bars:
-    height = bar.get_height()
-    ax.text(bar.get_x() + bar.get_width()/2., height,
-            f'{height:.2f}',
-            ha='center', va='bottom')
-# 设置标题和标签
-ax.set_title('DFX团队2025年2月至5月磁盘账单金额',  pad=20)
-ax.set_xlabel('月份')
-ax.set_ylabel('金额（万元）')
-# 添加水印
-plt.figtext(
-    0.9, 0.02, 
-    'Enflame A plan', 
-    ha='right', 
-    fontsize=10, 
-    color='gray', 
-    alpha=0.7,
-    style='italic'
-)
-# 调整布局
-plt.tight_layout()
-# 保存图像
-
-# plt.grid(axis='y', alpha=0.5, linestyle='-')
-
+# 设置网格线
 ax.set_axisbelow(True)
 ax.grid(True, axis='y', linestyle='--', alpha=1.0)
 
-plt.show()
+# 添加水印
+plt.figtext(
+    0.9, 0.02,
+    'Enflame A plan',
+    ha='right',
+    fontsize=10,
+    color='gray',
+    alpha=0.7,
+    style='italic'
+)
+
+# 保存图像
+plt.savefig('output/SOCDE_slot_utilization.png', dpi=300, bbox_inches='tight')
+plt.savefig('output/SOCDE_slot_utilization.svg', format='svg', bbox_inches='tight')
+
+plt.close()
 print("已成功绘制图像")
+

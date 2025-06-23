@@ -37,6 +37,17 @@ class ChatModelFactory:
                         **cls.model_params
                         )
         
+            # return ChatDeepSeek(
+            #     model="deepseek-chat", # DeepSeek-V3-0324
+            #     # model="deepseek-reasoner", # DeepSeek-R1-0528
+            #     api_key="sk-78bbba8d1a214446958e01ac0d864657",
+            #     api_base="https://api.deepseek.com",
+
+            #     # api_key="sk-3bd31d29b8cc40d28e3b3cb45c71a24f",
+            #     # api_base="http://hse-llm.enflame.cn/",
+            #     **cls.model_params
+            #     )
+        
         elif model_name == "qwen":
             # 换成开源模型试试
             # https://siliconflow.cn/

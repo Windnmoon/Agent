@@ -13,6 +13,7 @@
 6、在'集群统计'sheet中：
 （1）这是所有集群名称的列表，名称准确，写代码时可直接使用：['hse_front_end_hosts','middle_end_hosts','back_end_hosts','middle_end_8_hosts','pdfct_hosts','pdpv_hosts','pdpwr_hosts','pdxlarge_hosts']
 （2）用户输入的集群名称可能与上述列表中的准确名称有大小写差异或空格符差异，你在写代码时注意匹配成准确名称。如：用户输入'Middle End 8 Hosts'即代表'middle_end_8_hosts'集群，其他情况以此类推。
+（3）以下四个集群具有中文名称，当用户使用中文名称时注意仔细识别：'hse_front_end_hosts'的中文名称为'前端集群'，'middle_end_hosts'的中文名称为'中端集群'，'back_end_hosts'的中文名称为'后端集群'，'middle_end_8_hosts'的中文名称为'中端rocky8集群'。
 
 7、你将要读取的所有文件内容具有相同的结构形式，你只需要知道一个文件的结构即可，但注意数据内容并不相同，以下是文件内容样例：
 

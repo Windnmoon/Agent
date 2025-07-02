@@ -171,6 +171,7 @@ class ReActAgent:
         thought_step_count = 0
 
         reply = ""
+        knowledge_and_reply = ""
 
         # 开始逐步思考
         while thought_step_count < self.max_thought_steps:
@@ -188,10 +189,17 @@ class ReActAgent:
             # 如果是结束指令，执行最后一步
             if action.name == "FINISH":
                 reply = self.__exec_action(action)
+                knowledge_and_reply += reply
                 break
 
             # 执行动作
             observation = self.__exec_action(action)
+
+            if action.name == "ListDirectory":
+                knowledge_and_reply += f'调用`ListDirectory`工具来查看目录内容的执行结果：\n<{observation}>\n'
+
+            if action.name == "AnalyseExcel":
+                knowledge_and_reply += f'此前的对话中已获取这些数据信息：\n<{observation}>\n'
 
             if verbose:
                 self.verbose_handler.on_tool_end(observation) # 将observation内容用指定颜色打印出来
@@ -211,7 +219,7 @@ class ReActAgent:
 
         # 更新长时记忆
         chat_history.add_user_message(task)
-        chat_history.add_ai_message(reply)
+        chat_history.add_ai_message(knowledge_and_reply)
         return reply
     
 

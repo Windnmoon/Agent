@@ -32,6 +32,11 @@ dir_path={work_dir}
 {agent_scratchpad}
 </history>
 
+当前的所有对话历史：
+<long history>
+{chat_history}
+</long history>
+
 以JSON形式输出你选择执行的动作/工具
 {format_instructions}
 

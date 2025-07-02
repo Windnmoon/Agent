@@ -21,7 +21,7 @@ def launch_agent(agent: ReActAgent):
 
     while True:
         task = input(f"{ai_icon}：有什么可以帮您？\n{human_icon}：")
-        if task.strip().lower() == "quit":
+        if task.strip().lower() in ['quit', 'q']:
             break
         reply = agent.run(task, chat_history, verbose=True)
         print(f"{ai_icon}：{reply}\n")

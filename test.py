@@ -1,4 +1,5 @@
 from langchain_experimental.utilities import PythonREPL
+import subprocess
 
 
 code1 = '''import matplotlib.pyplot as plt
@@ -74,5 +75,11 @@ code2 = '''print("心想事成")'''
 print("大吉大利")
 
 ans = PythonREPL().run(code1)
-print(ans)
+# ans = subprocess.run(
+#     ["python", "-c", code1],  # -c 表示执行代码字符串
+#     capture_output=True,
+#     text=True
+# )
+# print(ans)
+print(ans.stdout)
 print("吉星高照")

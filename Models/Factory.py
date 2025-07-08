@@ -16,14 +16,6 @@ class ChatModelFactory:
     @classmethod
     def get_model(cls, model_name: str, use_azure: bool = False):
         if "deepseek" in model_name:
-            # if not use_azure:
-            #     return ChatOpenAI(model=model_name, **cls.model_params)
-            # else:
-            #     return AzureChatOpenAI(
-            #         azure_deployment=model_name,
-            #         api_version="2024-05-01-preview",
-            #         **cls.model_params
-            #     )
 
             '''
             deepseek-chat 模型指向 DeepSeek-V3-0324， 通过指定 model='deepseek-chat' 调用。

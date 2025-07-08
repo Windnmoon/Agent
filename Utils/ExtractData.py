@@ -38,7 +38,7 @@ def extract_excel_data():
     for raw_file_name in raw_files_list:
         date_str = format_date(raw_file_name)
         input_path = f'raw_data/{raw_file_name}'
-        output_path = f'data/HSE资源费用等综合信息月表_{date_str}.xlsx'
+        output_path = f'data/HSE各项综合信息月表_{date_str}.xlsx'
 
 
         # 创建输出工作簿

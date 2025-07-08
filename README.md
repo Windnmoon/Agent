@@ -16,6 +16,14 @@ pip install -r requirements.txt
 python main.py
 ```
 
+### 程序退出
+
+当程序提示：
+
+🤖：有什么可以帮您？
+
+输入**quit**或**q**后回车键退出
+
 ### 提问示例
 
 - SoCDV & SYSIPDV团队，2025年2月至2025年5月期间，横轴月份，纵轴合计账单（万元），画出柱状图

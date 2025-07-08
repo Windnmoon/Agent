@@ -150,7 +150,7 @@ class PlotTool:
     def as_tool(self):
         return StructuredTool.from_function(
             func=self.agent_plot,
-            name="plot_with_csv",
+            name="plot_with_information",
             description=self.__class__.__doc__.replace("\n", ""), # self.__class__ 获取当前对象的类，即 ExcelAnalyser 类本身。__doc__ 是 Python 中的特殊属性，用于获取类或函数的文档字符串（docstring），即class ExcelAnalyser下面一行的字符串
         )
 

@@ -59,8 +59,9 @@ def extract_excel_data():
 
         # 创建输出工作簿
         output_wb = xw.Book()
-        output_sheet5 = output_wb.sheets.active
-        output_sheet5.name = "队列统计"
+        output_sheet6 = output_wb.sheets.active
+        output_sheet6.name = "磁盘统计"
+        output_sheet5 = output_wb.sheets.add("队列统计")
         output_sheet4 = output_wb.sheets.add("mem使用情况统计")
         output_sheet3 = output_wb.sheets.add("slot使用情况统计")
         output_sheet2 = output_wb.sheets.add("集群统计")
@@ -460,7 +461,24 @@ def extract_excel_data():
             df = pd.read_csv(queue_path)
             output_sheet5.range('A1').options(index=False).value = df
             
-             # 保存输出文件
+            
+            #——————————————————————————————"磁盘统计"的工作表——————————————————————————————
+            try:
+                # 尝试获取名为"费用统计"的工作表
+                input_sheet = input_wb.sheets["磁盘统计"]
+            except KeyError:
+                print("错误：HSE资源费用统计总表_202504.xlsx中找不到名为【磁盘统计】的工作表")
+                return
+            
+            # 读取源数据范围
+            source_range = input_sheet.range('A1:N154')
+            data = source_range.value
+            
+            # 写入数据到新sheet
+            output_sheet6.range('A1').value = data
+
+
+            #——————————————————————————————保存输出文件——————————————————————————————
             output_wb.save(output_path)
             output_wb.close()
 

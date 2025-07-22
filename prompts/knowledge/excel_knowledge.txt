@@ -5,23 +5,24 @@
 3、如果是与slot利用率、slot申请占比相关的问题，查询的sheet为'slot使用情况统计'。
 4、如果是与mem利用率、mem申请占比相关的问题，查询的sheet为'mem使用情况统计'，其中mem是memory的简称。
 5、如果是与队列相关的问题，查询的sheet为'队列统计'。
-6、在'费用统计'sheet中：
+6、如果是与研发盘、备份盘或磁盘相关的问题，查询的sheet为'磁盘统计'。
+7、在'费用统计'sheet中：
 （1）这是所有团队名称列表，名称准确，写代码时可直接使用：['sip_dv','Processor','interconnect','SoCDV & SYSIPDV','Cluster','SocPV','SysDV & CommonIPDV','mc ipdv','DCE IPDV','APP & SIP_Design', 'SOCDE','IMPL_IP_Dev','IP_fabri','NPE&IP_amos','package','DFX','Platform','Impl-FE','SIPI','Impl-Analog','Impl-BE']。写python代码查询团队的信息时，确保代码中的【团队名称】与要查询的【目标团队名称】一致，且名称应为上面列表中的元素。
 （2）所有团队的总称为：HSE所有团队。
 （3）用户输入的团队名称可能与上述列表中的准确名称有大小写差异或空格符差异，你在写代码时注意匹配成准确名称。如：用户输入'socdv&sysipdv'即代表'SoCDV & SYSIPDV'团队，其他情况以此类推。
 （4）用户输入的团队名称中所包含的"&"符号，一律视为单个团队名称中的必要字符，不应看成是两个团队。如：XXX & YYY为一个完整的团队名称，不应视为XXX团队与YYY团队。
 
-7、在'集群统计'sheet中：
+8、在'集群统计'sheet中：
 （1）这是所有集群名称的列表，名称准确，写代码时可直接使用：['hse_front_end_hosts','middle_end_hosts','back_end_hosts','middle_end_8_hosts','pdfct_hosts','pdpv_hosts','pdpwr_hosts','pdxlarge_hosts']
 （2）用户输入的集群名称可能与上述列表中的准确名称有大小写差异或空格符差异，你在写代码时注意匹配成准确名称。如：用户输入'Middle End 8 Hosts'即代表'middle_end_8_hosts'集群，其他情况以此类推。
 （3）以下四个集群具有中文名称，当用户使用中文名称时注意仔细识别：'hse_front_end_hosts'的中文名称为'前端集群'，'middle_end_hosts'的中文名称为'中端集群'，'back_end_hosts'的中文名称为'后端集群'，'middle_end_8_hosts'的中文名称为'中端rocky8集群'。
 
-8、你将要读取的所有文件内容具有相同的结构形式，你只需要知道一个文件的结构即可，但注意数据内容并不相同，以下是文件内容样例：
+9、你将要读取的所有文件内容具有相同的结构形式，你只需要知道一个文件的结构即可，但注意数据内容并不相同，以下是文件内容样例：
 
 '''
 这是 './data/HSE资源费用月表_20xx年x月.xlsx' 文件的工作表名称：
 
-['费用统计'], ['集群统计'], ['slot使用情况统计'], ['mem使用情况统计'], ['队列统计']
+['费用统计'], ['集群统计'], ['slot使用情况统计'], ['mem使用情况统计'], ['队列统计'], ['磁盘统计']
 
 以下是各个工作表的样例：
 
@@ -194,7 +195,7 @@ cluster_debug	hse_front_end_hosts/	15438	183 TiB	64	30	0	47%	200 GiB	-	-	-	73.8 
 
 注意：这只是前4行样例，不代表全部数据，所有表格文件具有完全相同的结构形式，但注意数据内容并不相同
 
-9、这些团队只有slot利用率和slot申请占比数据，没有mem利用率和mem申请占比数据:
+10、这些团队只有slot利用率和slot申请占比数据，没有mem利用率和mem申请占比数据:
 [sip_dv,Processor,interconnect,SoCDV & SYSIPDV,Cluster,SocPV,SysDV & CommonIPDV,mc ipdv,DCE IPDV,APP & SIP_Design,SOCDE,IMPL_IP_Dev];
 这些团队只有mem利用率和mem申请占比数据，没有slot利用率和slot申请占比数据:
 [dfx,Platform,Impl-FE,SIPI,Impl-Analog]

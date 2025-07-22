@@ -1,4 +1,5 @@
 import re
+import subprocess
 from typing import Union, Dict
 
 from langchain.tools import StructuredTool
@@ -85,7 +86,9 @@ class ExcelAnalyser:
         code = code_parser.parse(response)
 
         if code:
-            ans = query+"\n"+PythonREPL().run(code) # PythonREPL 是一个类，用于在 Python 的交互式解释器（REPL）中执行代码。run(code) 方法接收一个字符串参数 code，表示要执行的 Python 代码，并返回代码的执行结果。
+            ans = query+"\n"+subprocess.run(["python", "-c", code],  # -c 表示执行代码字符串
+                                            capture_output=True,
+                                            text=True).stdout
             return ans
         else:
             return "没有找到可执行的Python代码"
@@ -142,7 +145,10 @@ class PlotTool:
         code = code_parser.parse(response)
 
         if code:
-            ans = query+"\n"+PythonREPL().run(code) # PythonREPL 是一个类，用于在 Python 的交互式解释器（REPL）中执行代码。run(code) 方法接收一个字符串参数 code，表示要执行的 Python 代码，并返回代码的执行结果。
+            ans = query+"\n"+subprocess.run(["python", "-c", code],  # -c 表示执行代码字符串
+                                            capture_output=True,
+                                            text=True).stdout
+
             return ans
         else:
             return "没有找到可执行的Python代码"

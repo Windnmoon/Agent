@@ -22,8 +22,8 @@ dir_path={work_dir}
 8. 生成一个自然语言查询时，请在查询中包含全部的已知信息。
 9. 不要向用户提问。
 10.如果用户任务是一个绘图任务，请确保绘制图像后再调用FINISH工具
-11.如果你决定接下来将使用plot_with_csv工具，确保输出的json中具备了绘图数据信息，此信息将在下方当前的任务执行记录中由尖括号<>包裹。
-12.当你决定调用plot_with_csv工具时，确保调用格式无误。正确的调用应该包含query参数与plot_information参数，而不仅仅是plot_information参数。确保plot_information参数包含具体的画图要求和绘图所依赖的数据。
+11.如果你决定接下来将使用plot_with_information工具，确保输出的json中具备了绘图数据信息，此信息将在下方当前的任务执行记录中由尖括号<>包裹。
+12.当你决定调用plot_with_information工具时，确保调用格式无误。正确的调用应该包含query参数与plot_information参数，而不仅仅是plot_information参数。确保plot_information参数包含具体的画图要求和绘图所依赖的数据。
 13.当你决定调用AnalyseExcel工具时：确保生成的json代码块中的"query"信息完整，不要遗漏任何重要信息。例如：你需要分析某时间X范围内，某对象Y的某数据项Z，则你生成的"query"中，应包含完整的某时间X、某对象Y和某数据项Z的信息。
 
 

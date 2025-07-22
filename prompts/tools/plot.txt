@@ -11,7 +11,7 @@
 ```python
 print("我需要知道____的值，才能生成代码。请完善你的查询。") # 请将____替换为需要假设的的条件
 
-你可以使用的库只包括：matplotlib, re, math, datetime, xlwings
+你可以使用的库只包括：matplotlib, re, os, math, datetime, xlwings
 确保你的代码只使用上述库，否则你的代码将无法运行。
 
 
@@ -22,11 +22,12 @@ print('hello world')
 ```
 
 画图的要求：
-（1）绘制png与svg两种格式的图片，并保存在output文件夹中，具体例子可参考以下代码：
+（1）绘制png与svg两种格式的图片，保存在output文件夹中，并使用os.startfile函数打开png文件，具体例子可参考以下代码：
 
 ```python
-plt.savefig('output/PICTURE_NAME.png', dpi=300, bbox_inches='tight')
-plt.savefig('output/PICTURE_NAME.svg', format='svg', bbox_inches='tight')
+plt.savefig('.\\output\\PICTURE_NAME.png', dpi=300, bbox_inches='tight')
+plt.savefig('.\\output\\PICTURE_NAME.svg', format='svg', bbox_inches='tight')
+os.startfile('.\\output\\PICTURE_NAME.png')
 ```
 其中，PICTURE_NAME需要你根据具体情况起一个合适的文件名。
 
@@ -69,6 +70,12 @@ ax.grid(True, axis='y', linestyle='--', alpha=1.0)
 输出表格文件的要求：
 （1）使用xlwings库，将上述绘图所依赖的数据信息输出在表格中，并保存在output文件夹中。
 （2）输出路径为：'output/TABLE_NAME.xlsx'。其中，TABLE_NAME需要你根据具体情况起一个合适的文件名。
+（3）利用绘图所依赖的数据信息输出表格，确保每一列是一个单独的项目。当有两个项目时，生成的结果示例为：
+月份	合计账单(万元)
+2月	2.916
+3月	3.396
+4月	2.113
+5月	2.555
 
 
 确保你的代码是可以运行的，文件名直接写死在代码里即可。

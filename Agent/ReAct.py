@@ -198,7 +198,7 @@ class ReActAgent:
             if action.name == "ListDirectory":
                 knowledge_and_reply += f'调用`ListDirectory`工具来查看目录内容的执行结果：\n<{observation}>\n'
 
-            if action.name == "AnalyseExcel":
+            if action.name == "ExcelSheet2csv":
                 knowledge_and_reply += f'此前的对话中已获取这些数据信息：\n<{observation}>\n'
 
             if verbose:

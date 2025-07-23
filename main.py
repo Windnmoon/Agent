@@ -37,12 +37,13 @@ def main():
     tools = [
         directory_inspection_tool,
         finish_placeholder,
-        ExcelAnalyser(
-            llm=llm,
-            knowledge_file="./prompts/knowledge/excel_knowledge.txt",
-            prompt_file="./prompts/tools/excel_analyser.txt",
-            verbose=True
-        ).as_tool(),
+        excel_to_csv_tool,
+        # ExcelAnalyser(
+        #     llm=llm,
+        #     knowledge_file="./prompts/knowledge/excel_knowledge.txt",
+        #     prompt_file="./prompts/tools/excel_analyser.txt",
+        #     verbose=True
+        # ).as_tool(),
         PlotTool(
             llm=llm,
             prompt_file="./prompts/tools/plot.txt",
